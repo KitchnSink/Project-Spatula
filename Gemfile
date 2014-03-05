@@ -1,33 +1,42 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-# Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg' # Use postgres as the database for Active Record
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.0' # Use SCSS for stylesheets
 
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
-gem 'jquery-rails' # Use jquery as the JavaScript library
+# gem 'coffee-rails', '~> 4.0.0' # Use CoffeeScript for .js.coffee assets and views
+
+gem 'jquery-rails' # Use jquery and Zepto as the JavaScript library
+
+gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+
+gem 'jbuilder', '~> 1.2' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 
 gem 'zurb-foundation' # Adds foundation
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
+gem 'redcarpet'
 
 gem "minitest-rails" # Adds mini-test framework
 
+gem 'devise' # Adds Devise user authentication
+
+gem "pundit" # Adds policy-based authorization support
+gem 'coveralls', require: false # Coveralls gem for test coverage
+
 group :test do
+
   gem 'minitest-rails-capybara'
   gem 'turn'
+end
+
+group :development do
+  gem 'capistrano',  '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
 end
 
 group :doc do
@@ -40,12 +49,3 @@ group :production do
 end
 
 ruby "2.0.0"
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-gem 'capistrano', group: :development
