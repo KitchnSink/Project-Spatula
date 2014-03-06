@@ -4,15 +4,19 @@ feature "I should be able to create savable ebay search filters" do
 
   scenario "Anon user can create a new search" do
     # Given an anonymous user visits the filters page
-
     visit new_filter_path
-    fill_in "Title", with: filters(:cr).title
-    fill_in "Body", with: filters(:cr).body
+    page.find('form#filter-form').fill_in "filter-form-search-term", with: "Macbook Air"
+    page.find('form#filter-form').fill_in "filter-form-max-price", with: "1000"
+    page.find('form#filter-form').fill_in "filter-form-ending-time", with: "1"
+    page.find('form#filter-form').select 'Day', from: "filter-form-ending-time-unit"
+    page.find('form#filter-form').select 'Ending Soonest', from: "filter-form-sort-by"
 
     # When I submit the form
-    click_on "Create Filter"
+    click_on "Save Filter"
 
-    # Then a new filter should be created and displayed
+    # Then I should be forwarded to the login/signup page
+
+    # Then once I login, a new filter should be created and displayed
     page.text.must_include "Filter was successfully created"
     page.text.must_include filters(:cr).title
     page.has_css? "#author"
