@@ -2,66 +2,56 @@ require "test_helper"
 
 feature "I should be able to create savable ebay search filters" do
 
-  scenario "Anon user can create a new search" do
-    # Given an anonymous user visits the filters page
+  scenario "Authenticated user can create a new filter" do
+    # Given an authenticated user visits the filters page
+    sign_in(:user)
     visit new_filter_path
-    page.find('form#filter-form').fill_in "filter-form-search-term", with: "Macbook Air"
-    page.find('form#filter-form').fill_in "filter-form-max-price", with: "1000"
-    page.find('form#filter-form').fill_in "filter-form-ending-time", with: "1"
-    page.find('form#filter-form').select 'Day', from: "filter-form-ending-time-unit"
-    page.find('form#filter-form').select 'Ending Soonest', from: "filter-form-sort-by"
 
     # When I submit the form
-    click_on "Save Filter"
-
-    # Then I should be forwarded to the login/signup page
+    fill_in_filter_form(term: 'Macbook Air')
+    page.find('form#filter-form').click_on "Save"
 
     # Then once I login, a new filter should be created and displayed
-    page.text.must_include "Filter was successfully created"
-    page.text.must_include filters(:cr).title
-    page.has_css? "#author"
-    page.text.must_include users(:author).username # Use your fixture name here.
-    page.text.must_include "Status: Unpublished"
-    page.find('article.filter').has_css? ".unpublished"
+    page.text.must_include "Signed in successfully"
+    page.find('h2.filter-title').text.must_include "Macbook Air"
   end
 
-  scenario "unauthenticated site visitors cannot see new filter button" do
-    # When I visit the blog index page
-    visit filters_path
-    # Then I should not see the "New Filter" button
-    page.wont_have_link "New Filter"
-  end
-
-  scenario "authors can't publish" do
-    # Given an author's account
-    sign_in(:author)
-
-    # When I visit the new page
+  scenario "Anon user can create a new filter by logging in with an existing username/password" do
+    # Given an anonymous user visits the filters page
     visit new_filter_path
-
-    # There is no checkbox for published
-    page.wont_have_field('Published')
-  end
-
-  scenario "editors can publish" do
-    # Given an editor's account
-    sign_in(:editor)
-
-    # When I visit the new page
-    visit new_filter_path
-
-    # There is a checkbox for published
-    page.must_have_field('Published')
+    fill_in_filter_form(term: 'Macbook Air')
 
     # When I submit the form
-    fill_in "Title", with: filters(:cr).title
-    fill_in "Body", with: filters(:cr).body
-    check "Published"
-    click_on "Create Filter"
+    page.find('form#filter-form').click_on "Save"
 
-    # Then the published filter should be shown
-    page.text.wont_include "Status: Unpublished"
-    page.find('article.filter').has_css? ".published"
+    # Then I should be forwarded to the login/signup page
+    page.text.must_include "Please login or create a new account to save your search results"
+
+    fill_in_login_form(:user)
+
+    # Then once I login, a new filter should be created and displayed
+    page.text.must_include "Signed in successfully"
+    page.find('h2.filter-title').text.must_include "Macbook Air"
+  end
+
+  scenario "Anon user can create a new filter by logging in with a new username/password" do
+    # Given an anonymous user visits the filters page
+    visit new_filter_path
+    fill_in_filter_form(term: 'Macbook Air')
+
+    # When I submit the form
+    page.find('form#filter-form').click_on 'Save'
+
+    # Then I should be forwarded to the login/signup page
+    page.text.must_include "Please login or create a new account to save your search results"
+
+    # when I click on the
+    click_on "Create Account"
+    fill_in_sign_up_form(:user)
+
+    # Then once I login, a new filter should be created and displayed
+    page.text.must_include 'Welcome! You have signed up successfully.'
+    page.find('h2.filter-title').text.must_include 'Macbook Air'
   end
 
 end

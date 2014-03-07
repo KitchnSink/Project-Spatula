@@ -1,0 +1,23 @@
+shirt:
+  term: 'Shirt'
+  max_price: 100
+  ending_time: 1
+  ending_time_unit: 'Day'
+  sort_by: 'Ending Soonest'
+  published: false
+
+iphone:
+  term: 'iPhone'
+  max_price: 1000
+  ending_time: 3
+  ending_time_unit: 'Day'
+  sort_by: 'Ending Soonest'
+  published: false
+
+computer:
+  term: 'computer'
+  max_price: 1000
+  ending_time: 3
+  ending_time_unit: 'Day'
+  sort_by: 'Ending Soonest'
+  published: false

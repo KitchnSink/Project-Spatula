@@ -20,6 +20,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/rails'
 begin; require 'turn/autorun'; rescue LoadError; end
+require 'helpers/filters_helper'
 
 # To add Capybara feature tests add `gem 'minitest-rails-capybara'`
 # to the test group in the Gemfile and uncomment the following:
@@ -44,7 +45,18 @@ Turn.config.format = :pretty
 
 def sign_in(role = :user)
   visit new_user_session_path
+end
+
+def fill_in_login_form(role = :user)
   fill_in "Email", with: users(role).email
   fill_in "Password", with: "password"
   page.find("form").click_on "Sign in"
+end
+
+def fill_in_sign_up_form(username = 'test')
+  fill_in "Username", with: username
+  fill_in "Email", with: "#{username}@test.com"
+  fill_in "Password", with: "password"
+  fill_in "Password confirmation", with: "password"
+  page.find("form").click_on "Sign up"
 end
