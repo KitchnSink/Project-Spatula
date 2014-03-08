@@ -8,8 +8,8 @@ feature "I should be able to create savable ebay search filters" do
     visit new_filter_path
 
     # When I submit the form
-    fill_in_filter_form(term: 'Macbook Air')
-    page.find('form#filter-form').click_on "Save"
+    fill_in_filter_form(search_search_term: 'Macbook Air')
+    page.find('#filter-form').click_on "Save"
 
     # Then once I login, a new filter should be created and displayed
     page.text.must_include "Signed in successfully"
@@ -19,10 +19,10 @@ feature "I should be able to create savable ebay search filters" do
   scenario "Anon user can create a new filter by logging in with an existing username/password" do
     # Given an anonymous user visits the filters page
     visit new_filter_path
-    fill_in_filter_form(term: 'Macbook Air')
+    fill_in_filter_form(search_term: 'Macbook Air')
 
     # When I submit the form
-    page.find('form#filter-form').click_on "Save"
+    page.find('#filter-form').click_on "Save"
 
     # Then I should be forwarded to the login/signup page
     page.text.must_include "Please login or create a new account to save your search results"
@@ -37,10 +37,10 @@ feature "I should be able to create savable ebay search filters" do
   scenario "Anon user can create a new filter by logging in with a new username/password" do
     # Given an anonymous user visits the filters page
     visit new_filter_path
-    fill_in_filter_form(term: 'Macbook Air')
+    fill_in_filter_form(search_term: 'Macbook Air')
 
     # When I submit the form
-    page.find('form#filter-form').click_on 'Save'
+    page.find('#filter-form').click_on 'Save'
 
     # Then I should be forwarded to the login/signup page
     page.text.must_include "Please login or create a new account to save your search results"
