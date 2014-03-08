@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20140307075033) do
   enable_extension "plpgsql"
 
   create_table "filters", force: true do |t|
-    t.string   "term"
+    t.string   "search_term"
     t.integer  "max_price"
     t.integer  "ending_time"
     t.string   "ending_time_unit"

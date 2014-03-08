@@ -1,5 +1,5 @@
 shirt:
-  term: 'Shirt'
+  search_term: 'Shirt'
   max_price: 100
   ending_time: 1
   ending_time_unit: 'Day'
@@ -7,7 +7,7 @@ shirt:
   published: false
 
 iphone:
-  term: 'iPhone'
+  search_term: 'iPhone'
   max_price: 1000
   ending_time: 3
   ending_time_unit: 'Day'
@@ -15,7 +15,7 @@ iphone:
   published: false
 
 computer:
-  term: 'computer'
+  search_term: 'computer'
   max_price: 1000
   ending_time: 3
   ending_time_unit: 'Day'

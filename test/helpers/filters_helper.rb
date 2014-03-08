@@ -1,16 +1,16 @@
 
 def fill_in_filter_form(params = {})
-  params.merge({
-    term: 'test',
+  params = {
+    search_term: 'test',
     max_price: 1000,
     ending_time: 1,
     ending_time_unit: 'Day',
-    sort_by: 'Ending Soonest'
-  })
+    sort_by: 'date-desc'
+  }.merge(params)
 
-  page.find('form#filter-form').fill_in "filter-form-search-term", with: params.term
-  page.find('form#filter-form').fill_in "filter-form-max-price", with: params.max_price
-  page.find('form#filter-form').fill_in "filter-form-ending-time", with: params.ending_time
-  page.find('form#filter-form').select params.ending_time_unit, from: "filter-form-ending-time-unit"
-  page.find('form#filter-form').select params.sort_by, from: "filter-form-sort-by"
+  page.find('#filter-form').fill_in "Search Term", with: params[:search_term]
+  page.find('#filter-form').fill_in "Max Price", with: params[:max_price]
+  page.find('#filter-form').fill_in "Ending Time", with: params[:ending_time]
+  page.find('#filter-form').select params[:ending_time_unit], from: "filter_ending_time_unit"
+  page.find('#filter-form').select params[:ending_time_unit], from: "filter_sort_by"
 end
