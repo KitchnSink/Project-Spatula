@@ -45,6 +45,7 @@ Turn.config.format = :pretty
 
 def sign_in(role = :user)
   visit new_user_session_path
+  fill_in_login_form(role)
 end
 
 def fill_in_login_form(role = :user)

@@ -1,0 +1,10 @@
+
+<ul class="inline-list">
+  <% if update? @filter %>
+    <li><%= link_to 'View', filter_path(@filter) %></li>
+  <% end %>
+  <% if destroy? @filter %>
+    <li><%= link_to 'Delete', @filter, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button alert' %></li>
+  <% end %>
+  <li><%= link_to 'Back', filters_path, class: 'button' %></li>
+</ul>

@@ -1,11 +1,18 @@
 class FiltersController < ApplicationController
+  require 'json'
   before_action :set_filter, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized, except: [:index, :new]
   after_action :verify_policy_scoped, only: :index
+  rescue_from Pundit::NotAuthorizedError, with: :authenticate_user
 
   # GET /filters
   # GET /filters.json
   def index
+    # if there is a new filter in session, save it to their account
+    unless(session[:preauth_filter].nil?)
+      @filter = Filter.new(JSON.parse(session.delete(:preauth_filter)))
+      return save_record @filter
+    end
     @filters = policy_scope(Filter)
   end
 
@@ -20,27 +27,12 @@ class FiltersController < ApplicationController
     @filter = Filter.new
   end
 
-  # GET /filters/1/edit
-  def edit
-    authorize @filter, :update?
-  end
-
   # FILTER /filters
   # FILTER /filters.json
   def create
     @filter = Filter.new(filter_params)
-    authorize @filter
-    current_user.filters << @filter
-
-    respond_to do |format|
-      if @filter.save
-        format.html { redirect_to @filter, notice: 'Filter was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @filter }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @filter.errors, status: :unprocessable_entity }
-      end
-    end
+    # If the user is not logged in, save this filter to a session and send them to get authenticated
+    save_record @filter
   end
 
   # PATCH/PUT /filters/1
@@ -78,5 +70,30 @@ class FiltersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def filter_params
       params.require(:filter).permit(*policy(@filter || Filter).permitted_attributes)
+    end
+
+    # Saves a filter to the current user's record
+    def save_record (filter)
+      # if the user is not logged in, save the filter to the session
+      unless(user_signed_in?)
+        session[:preauth_filter] = filter.to_json
+      end
+      # if they fail here they'll get sent along to the login form
+      authorize filter, :create?
+      current_user.filters << filter
+
+      respond_to do |format|
+        if filter.save
+          format.html { redirect_to filter, notice: 'Filter was successfully created.' }
+          format.json { render action: 'show', status: :created, location: filter }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: filter.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    def authenticate_user
+      authenticate_user!
     end
 end

@@ -14,7 +14,11 @@
         <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
       <% end -%>
 
-      <div><%= f.submit "Sign in", class: "button" %></div>
+      <div>
+        <%= f.submit "Sign in", class: "button" %>
+        Or,
+        <%= link_to 'Create an account', new_user_registration_path %>
+        </div>
     <% end %>
 
   </div>

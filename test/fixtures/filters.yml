@@ -5,6 +5,7 @@ shirt:
   ending_time_unit: 'Day'
   sort_by: 'Ending Soonest'
   published: false
+  user: chris
 
 iphone:
   search_term: 'iPhone'
@@ -13,6 +14,7 @@ iphone:
   ending_time_unit: 'Day'
   sort_by: 'Ending Soonest'
   published: false
+  user: chris
 
 computer:
   search_term: 'computer'
@@ -21,3 +23,4 @@ computer:
   ending_time_unit: 'Day'
   sort_by: 'Ending Soonest'
   published: false
+  user: chris

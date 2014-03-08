@@ -8,11 +8,10 @@ feature "I should be able to create savable ebay search filters" do
     visit new_filter_path
 
     # When I submit the form
-    fill_in_filter_form(search_search_term: 'Macbook Air')
+    fill_in_filter_form(search_term: 'Macbook Air')
     page.find('#filter-form').click_on "Save"
 
     # Then once I login, a new filter should be created and displayed
-    page.text.must_include "Signed in successfully"
     page.find('h2.filter-title').text.must_include "Macbook Air"
   end
 
@@ -25,12 +24,11 @@ feature "I should be able to create savable ebay search filters" do
     page.find('#filter-form').click_on "Save"
 
     # Then I should be forwarded to the login/signup page
-    page.text.must_include "Please login or create a new account to save your search results"
+    page.text.must_include "You need to sign in or sign up before continuing"
 
     fill_in_login_form(:user)
 
     # Then once I login, a new filter should be created and displayed
-    page.text.must_include "Signed in successfully"
     page.find('h2.filter-title').text.must_include "Macbook Air"
   end
 
@@ -43,14 +41,13 @@ feature "I should be able to create savable ebay search filters" do
     page.find('#filter-form').click_on 'Save'
 
     # Then I should be forwarded to the login/signup page
-    page.text.must_include "Please login or create a new account to save your search results"
+    page.text.must_include "You need to sign in or sign up before continuing"
+    click_on "Create an account"
 
-    # when I click on the
-    click_on "Create Account"
-    fill_in_sign_up_form(:user)
+    # when I create an account
+    fill_in_sign_up_form(:create_filter_test)
 
-    # Then once I login, a new filter should be created and displayed
-    page.text.must_include 'Welcome! You have signed up successfully.'
+    # Then I should be redirected to the new filter
     page.find('h2.filter-title').text.must_include 'Macbook Air'
   end
 

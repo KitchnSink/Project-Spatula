@@ -1,5 +1,5 @@
 
-def fill_in_filter_form(params = {})
+def fill_in_filter_form(params)
   params = {
     search_term: 'test',
     max_price: 1000,
