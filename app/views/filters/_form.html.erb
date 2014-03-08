@@ -1,0 +1,34 @@
+<div id="filter-form">
+  <%= form_for(@filter) do |f| %>
+    <div class="field row">
+      <div class="columns">
+        <div class="filter-search">
+          <ul class="inline-list">
+            <li>
+              <%= f.label :search_term %>
+              <div><%= f.text_field :search_term, autofocus: true, placeholder: 'Search Term' %></div>
+            </li>
+            <li>
+              <%= f.label :max_price %>
+              <div><%= f.text_field :max_price, placeholder: 'Max Price' %></div>
+            </li>
+            <li>
+              <%= f.label :ending_time %>
+              <div><%= f.text_field :ending_time, placeholder: 'Ending Time' %></div>
+            </li>
+            <li>
+              <%= f.label :ending_time_unit %>
+              <div><%= f.select :ending_time_unit, [['Minute','minute'], ['Hour', 'hour'], ['Day', 'day']] %></div>
+            </li>
+            <li>
+              <%= f.label :sort_by %>
+              <div><%= f.select :sort_by, [['Ending Soonest', 'date-desc'], ['Ending Last', 'date-asc'], ['Lowest Price', 'price-asc'], ['Highest Price', 'price-desc'], ['Best Match', 'best-match']] %></div>
+            </li>
+            <li>
+                <%= submit_tag "Save Filter", class: 'button' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+</div>
