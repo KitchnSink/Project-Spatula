@@ -11,6 +11,6 @@ def fill_in_filter_form(params)
   page.find('#filter-form').fill_in "Search Term", with: params[:search_term]
   page.find('#filter-form').fill_in "Max Price", with: params[:max_price]
   page.find('#filter-form').fill_in "Ending Time", with: params[:ending_time]
-  page.find('#filter-form').select params[:ending_time_unit], from: "filter_ending_time_unit"
-  page.find('#filter-form').select params[:sort_by], from: "filter_sort_by"
+  page.find('#filter-form').select params[:ending_time_unit], from: "end-unit"
+  page.find('#filter-form').select params[:sort_by], from: "sort"
 end
