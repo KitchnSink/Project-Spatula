@@ -1,0 +1,16 @@
+
+<% if(update? @filter) %>
+<div class="row">
+  <div class="columns">
+    <%= render 'form' %>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="columns">
+    <h2 class="filter-title"><em>Searching for</em>: <%= @filter.search_term %></h2>
+  </div>
+</div>
+
+<div class="content-goes-here"></div>

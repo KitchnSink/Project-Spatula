@@ -1,0 +1,28 @@
+
+<div class="row">
+  <div class="columns large-9 filters-list data-equalizer">
+
+  <h1>Filters</h1>
+
+    <% @filters.each_with_index do |filter, i| %>
+    <div class="row">
+      <div class="filter column" id="filter-<%= filter.id %>">
+        <% unless i === 0 %>
+          <hr>
+        <% end %>
+        <h3><%= link_to filter.search_term, filter %></h3>
+
+        <%= render 'manage' %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="columns large-3 sidebar">
+
+    <hr class="section-spacer hide-for-medium-up">
+    <br>
+    <br>
+    <%= link_to 'Start a new search', new_filter_path, class: 'button small' %>
+  </div>
+</div>

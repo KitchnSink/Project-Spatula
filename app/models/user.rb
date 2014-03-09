@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_uniqueness_of :username
 
-  has_many :posts, foreign_key: "author_id"
+  has_many :filters
 
   def anonymous?
     false
@@ -15,9 +15,5 @@ class User < ActiveRecord::Base
 
   def authenticated?
     true
-  end
-
-  def admin?
-    self.role == 'admin'
   end
 end

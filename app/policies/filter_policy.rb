@@ -2,11 +2,8 @@ class FilterPolicy < ApplicationPolicy
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-
-      if authenticated?
+      unless !user.nil?
         user.filters
-      elsif user && user.author?
-        scope.where(author: user)
       else
         scope.where(published: true)
       end
@@ -29,7 +26,11 @@ class FilterPolicy < ApplicationPolicy
   alias_method :publish?, :show?
 
   def owner_of?
-    record.author == user
+    has_owner? && record.user == user
+  end
+
+  def has_owner?
+    record.respond_to?('user')
   end
 
   def authenticated?
@@ -38,7 +39,9 @@ class FilterPolicy < ApplicationPolicy
 
   def permitted_attributes
     if authenticated? && (user.admin? || owner_of?)
-      [:term, :max_price, :ending_time, :ending_time_unit, :sort_by, :published]
+      [:search_term, :max_price, :ending_time, :ending_time_unit, :sort_by, :published]
+    else
+      [:search_term, :max_price, :ending_time, :ending_time_unit, :sort_by]
     end
   end
 
