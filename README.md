@@ -16,8 +16,6 @@ And pull in dummy data if you want
 
 `rake db fixtures:load`
 
-If you want to run tests
+Tests are located in the /test/features directory, to run them just enter
 
-`rake db test:prepare`
-
-Tests are located in the /test/features directory
+`rake`

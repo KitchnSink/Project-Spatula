@@ -5,11 +5,11 @@ deploy:
   provider: heroku
   api_key:
     secure: Q9Ch1k2F97jprmIO0jQvBoVyod48xmX7XlHcmW6VIUdjbDMIPj8IL/7EVxvwdN8/ki79nwDVOhY3uzCwtz0Y3dh9B3Y5PV43kg0QClWHPTgKJUktGQ6phuzwlCTXUW843nUQmIq5BRPBRw1oE3RSlhOYEGTziNXzNalUwAIaleY=
-  app: chrismontes
+  app: spatula-site
   on:
-    repo: mandelbro/ROR2014-portfolio
+    repo: KitchnSink/Project-Spatula.git
 before_script:
-  - psql -c 'create database portfolio_test' -U postgres
+  - psql -c 'create database spatula_test' -U postgres
   - "rake db:migrate"
 env:
   - DB=postgresql
