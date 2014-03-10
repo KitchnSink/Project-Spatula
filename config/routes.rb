@@ -1,9 +1,13 @@
 Spatula::Application.routes.draw do
 
-  resources :filters, except: [:index, :new, :edit]
-  get 'search', :to => "filters#new", as: 'new_filter'
+  resources :filters, except: [:index, :new, :edit] do
+    get 'publish', to: :publish, on: :member
+  end
+  get 'search', to: 'filters#new', as: 'new_filter'
 
   devise_for :users, path_names: { sign_up: 'join' }
+
+  get 'f/:username', to: 'filters#public', as: 'user_public'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

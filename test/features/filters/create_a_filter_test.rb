@@ -11,7 +11,19 @@ feature "I should be able to create savable ebay search filters" do
     fill_in_filter_form(search_term: 'Macbook Air')
     page.find('#filter-form').click_on "Save"
 
-    # Then once I login, a new filter should be created and displayed
+    # Then a new filter should be created and displayed
+    page.find('h2.filter-title').text.must_include "Macbook Air"
+  end
+
+  scenario "Authenticated user can create a new filter from their homepage" do
+    # Given an authenticated user visits the filters page
+    sign_in(:user)
+
+    # When I submit the form
+    fill_in_search_term_form('Macbook Air')
+    page.find('#search-term-form').click_on "Search"
+
+    # Then I should be redirected to the search page and a new filter should be created and displayed
     page.find('h2.filter-title').text.must_include "Macbook Air"
   end
 

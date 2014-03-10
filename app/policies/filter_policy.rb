@@ -2,10 +2,16 @@ class FilterPolicy < ApplicationPolicy
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-      unless !user.nil?
-        user.filters
-      else
+      if user.nil?
         scope.where(published: true)
+      elsif user.admin?
+        scope.all
+      else
+        if scope.first.user.id == user.id
+          user.filters
+        else
+          scope.where(published: true)
+        end
       end
 
     end
@@ -15,18 +21,16 @@ class FilterPolicy < ApplicationPolicy
     authenticated?
   end
 
-  def show?
-    authenticated? && (user.admin? || owner_of?)
+  def update?
+    record.user.nil? || (authenticated? && (user.admin? || owner_of?))
   end
 
-  alias_method :update?, :show?
+  alias_method :destroy?, :update?
 
-  alias_method :destroy?, :show?
-
-  alias_method :publish?, :show?
+  alias_method :publish?, :update?
 
   def owner_of?
-    has_owner? && record.user == user
+    has_owner? && record.user.id == user.id
   end
 
   def has_owner?

@@ -14,3 +14,8 @@ def fill_in_filter_form(params)
   page.find('#filter-form').select params[:ending_time_unit], from: "end-unit"
   page.find('#filter-form').select params[:sort_by], from: "sort"
 end
+
+def fill_in_search_term_form(term)
+
+  page.find('#search-term-form').fill_in "Search Term", with: term
+end

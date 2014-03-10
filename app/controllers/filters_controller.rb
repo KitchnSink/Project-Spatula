@@ -1,7 +1,8 @@
 class FiltersController < ApplicationController
   require 'json'
-  before_action :set_filter, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: [:index, :new]
+  before_action :set_filter, only: [:show, :edit, :update, :destroy, :publish]
+  before_action :set_user, only: :public
+  after_action :verify_authorized, except: [:index, :new, :public, :show]
   after_action :verify_policy_scoped, only: :index
   rescue_from Pundit::NotAuthorizedError, with: :authenticate_user
 
@@ -14,6 +15,12 @@ class FiltersController < ApplicationController
       return save_record @filter
     end
     @filters = policy_scope(Filter)
+  end
+
+  # GET /f/:username
+  # GET /f/:username.json
+  def public
+    @filters = policy_scope(@user.filters)
   end
 
   # GET /filters/1
@@ -50,13 +57,32 @@ class FiltersController < ApplicationController
     end
   end
 
+  def publish
+    authorize @filter
+    if @filter.published?
+      @filter.published = false
+    else
+      @filter.published = true
+    end
+
+    respond_to do |format|
+      if @filter.save
+        format.html { redirect_to current_user_path, notice: @filter.published? ? 'Filter is now public.' : 'Filter is now private.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @filter.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /filters/1
   # DELETE /filters/1.json
   def destroy
     authorize @filter
     @filter.destroy
     respond_to do |format|
-      format.html { redirect_to filters_url, notice: 'Filter was successfully deleted.' }
+      format.html { redirect_to current_user_path, notice: 'Filter was successfully deleted.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +91,10 @@ class FiltersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_filter
       @filter = Filter.find(params[:id])
+    end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find_by username: params[:username] || not_found
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

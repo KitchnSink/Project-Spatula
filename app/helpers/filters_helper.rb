@@ -12,4 +12,8 @@ module FiltersHelper
     policy(filter).update?
   end
 
+  def list_user
+    @user || current_user
+  end
+
 end

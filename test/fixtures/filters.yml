@@ -2,25 +2,34 @@ shirt:
   search_term: 'Shirt'
   max_price: 100
   ending_time: 1
-  ending_time_unit: 'Day'
+  ending_time_unit: 'day'
   sort_by: 'Ending Soonest'
-  published: false
-  user: chris
+  published: true
+  user: user
 
 iphone:
   search_term: 'iPhone'
   max_price: 1000
   ending_time: 3
-  ending_time_unit: 'Day'
+  ending_time_unit: 'day'
   sort_by: 'Ending Soonest'
   published: false
-  user: chris
+  user: user
 
 computer:
   search_term: 'computer'
   max_price: 1000
   ending_time: 3
-  ending_time_unit: 'Day'
+  ending_time_unit: 'day'
+  sort_by: 'Ending Soonest'
+  published: true
+  user: user
+
+mba:
+  search_term: 'Macbook Air'
+  max_price: 1000
+  ending_time: 3
+  ending_time_unit: 'day'
   sort_by: 'Ending Soonest'
   published: false
-  user: chris
+  user: user

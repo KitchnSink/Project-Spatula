@@ -3,6 +3,9 @@
     <div class="field row">
       <div class="columns">
         <div class="filter-search">
+
+          <% if update? @filter %>
+
           <ul class="inline-list">
             <li>
               <%= f.label :search_term %>
@@ -28,6 +31,31 @@
                 <%= submit_tag "Save", class: 'button' %>
             </li>
           </ul>
+
+          <% else %>
+
+          <ul class="inline-list">
+            <li>
+              <div>Search Term: <%= @filter.search_term %></div>
+              <%= f.hidden_field :search_term, :id => 'query' %>
+            </li>
+            <li>
+              <div>Price: <%= @filter.max_price %></div>
+              <%= f.hidden_field :max_price, :id => 'price' %>
+            </li>
+            <li>
+              <div>Ending in: <%= pluralize(@filter.ending_time, @filter.ending_time_unit.capitalize) %></div>
+              <%= f.hidden_field :ending_time, :id => 'end-time' %>
+              <%= f.hidden_field :ending_time_unit, :id => 'end-unit' %>
+            </li>
+            <li>
+              <div>Sorted by: <%= @filter.sort_by %></div>
+              <%= f.hidden_field :sort_by, :id => 'sort' %>
+            </li>
+          </ul>
+
+          <% end %>
+
         </div>
       </div>
   <% end %>

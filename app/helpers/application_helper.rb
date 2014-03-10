@@ -10,4 +10,8 @@ module ApplicationHelper
     raw markdown.render(text)
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
 end

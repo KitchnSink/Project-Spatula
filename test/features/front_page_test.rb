@@ -9,7 +9,7 @@ feature "A front page to welcome users" do
     # When I search the markup
     # The columns class is used
     page.find('h1').text.must_include "Introducing Spatula."
-    page.find('h2').text.must_include "An easy online shopping tool for humans."
+    page.find('h2').text.must_include "A new tool for shoppers that's as easy as flipping pancakes."
     page.must_have_selector(".row .columns")
   end
 
@@ -17,11 +17,10 @@ feature "A front page to welcome users" do
   scenario "There should be a counter that tells users how many lists have been created" do
     # Given I access the welcome page
     visit root_path
-    listCount = Filter.all.size
 
     # When I search the markup
     # I can see the number of posts
-    page.find('.subtitle').must_include listCount
+    page.find('.subtitle').must_have_content Filter.all.count
   end
 
   # As a user, I want a search field on the homepage, so that I can start searching for products
@@ -29,9 +28,12 @@ feature "A front page to welcome users" do
     # Given I access the welcome page
     visit root_path
 
-    # When I search the markup
-    # I can see the number of posts
-    page.find('.subtitle').must_include listCount
+    # When I type in the search filter and click search
+    fill_in_search_term_form('Macbook Air')
+    click_on 'Search'
+
+    # Then I should end up on the search page with the search term field prefilled
+
   end
 
 end
