@@ -9,7 +9,7 @@ feature 'As a user
     page.find('#header').click_on "Sign In"
 
     # When I register with valid info
-    fill_in "Email", with: "rewt@test.com"
+    fill_in "Email", with: users(:user).email
     fill_in "Password", with: "password"
 
     page.find("form").click_on "Sign in"

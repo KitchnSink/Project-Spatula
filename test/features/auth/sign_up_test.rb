@@ -10,7 +10,7 @@ feature 'As a user
     page.find('#header').click_on "Sign Up"
 
     # When I submit the login form with valid info
-    fill_in_new_user_form('sign_up_test')
+    fill_in_sign_up_form('sign_up_test')
 
     # Then I should be signed up
     page.text.must_include "Welcome! You have signed up successfully."
