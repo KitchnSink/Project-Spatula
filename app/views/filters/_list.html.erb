@@ -4,7 +4,7 @@
 
   <h1><%= list_user.username %>'s Filters</h1>
 
-  <%= link_to 'Start a new search', new_filter_path, class: 'button small' %>
+  <%= render 'shared/search_term_form' %>
 
   <div class="filter-list">
     <% @filters.each_with_index do |filter, i| %>

@@ -1,0 +1,6 @@
+<div id="search-term-form">
+  <%= form_tag(new_filter_path, method: "get") do %>
+    <%= text_field_tag :query, '', autofocus: true, placeholder: 'Find something (i.e., Macbook Air, Jcrew shirt, Nike shoes)' %>
+    <%= submit_tag("Search") %>
+  <% end %>
+</div>

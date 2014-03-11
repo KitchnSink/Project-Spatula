@@ -33,6 +33,7 @@ feature "A front page to welcome users" do
     click_on 'Search'
 
     # Then I should end up on the search page with the search term field prefilled
+    page.find('form #query').value.must_include "Macbook Air"
 
   end
 

@@ -16,6 +16,5 @@ def fill_in_filter_form(params)
 end
 
 def fill_in_search_term_form(term)
-
-  page.find('#search-term-form').fill_in "Search Term", with: term
+  page.find('#search-term-form').fill_in "query", with: term
 end

@@ -23,8 +23,8 @@ feature "I should be able to create savable ebay search filters" do
     fill_in_search_term_form('Macbook Air')
     page.find('#search-term-form').click_on "Search"
 
-    # Then I should be redirected to the search page and a new filter should be created and displayed
-    page.find('h2.filter-title').text.must_include "Macbook Air"
+    # Then I should end up on the search page with the search term field prefilled
+    page.find('form #query').value.must_include "Macbook Air"
   end
 
   scenario "Anon user can create a new filter by logging in with an existing username/password" do
@@ -60,7 +60,7 @@ feature "I should be able to create savable ebay search filters" do
     fill_in_sign_up_form(:create_filter_test)
 
     # Then I should be redirected to the new filter
-    page.find('h2.filter-title').text.must_include 'Macbook Air'
+    page.text.must_include 'Macbook Air'
   end
 
 end

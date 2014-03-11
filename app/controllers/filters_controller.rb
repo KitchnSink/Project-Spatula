@@ -26,12 +26,12 @@ class FiltersController < ApplicationController
   # GET /filters/1
   # GET /filters/1.json
   def show
-    authorize @filter
   end
 
   # GET /filters/new
   def new
-    @filter = Filter.new
+    query = params[:query] || ''
+    @filter = Filter.new(search_term: query)
   end
 
   # FILTER /filters
