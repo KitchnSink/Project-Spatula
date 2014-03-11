@@ -1,7 +1,7 @@
 
 
 <% if flash[:notice] %>
-  <div class="row">
+  <div class="notice-wrapper row">
     <div class="columns notice">
       <div data-alert class="alert-box success radius">
         <%= flash[:notice] %>
@@ -12,7 +12,7 @@
 <% end %>
 
 <% if flash[:alert] %>
-  <div class="row">
+  <div class="notice-wrapper row">
     <div class="columns notice">
       <div data-alert class="alert-box success radius">
         <%= flash[:alert] %>

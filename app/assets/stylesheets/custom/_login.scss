@@ -4,3 +4,11 @@
     margin-top: .8em;
   } 
 }
+
+.notice-wrapper {
+  margin-top: 3em;
+}
+
+.notice-wrapper + .main {
+  padding-top: 0;
+}

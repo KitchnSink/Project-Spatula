@@ -161,6 +161,8 @@
     // remove old script
     $('script[data-ebay]').remove();
 
+    $('.filter-title').html('<em>Searching for</em>: <span id="query">' + values.query + '</span>');
+
     s = document.createElement('script'); // create script element
     s.src = url;
     s.setAttribute('data-ebay', true);
@@ -205,6 +207,7 @@
 
   function throwError(errorMessage) {
     gridContainer.empty();
+    $('.filter-title').empty();
     $('<li/>', {
       html: $('<div/>', {
         class: 'alert-box alert',
@@ -215,18 +218,21 @@
 
   function trigger() {
     refreshValues();
-    valdation();
+    if (!valdation()) {
+      return false;
+    }
 
     page = 1;
     var url = buildQuery() + '&callback=ebayNewSearchCB';
     search(url);
   }
 
-  function valdation(callback) {
+  function valdation() {
     if (!values.query) {
       throwError('Search Term Required');
       return false;
     }
+    return true;
   }
 
   function init() {
