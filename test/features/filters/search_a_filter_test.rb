@@ -7,11 +7,11 @@ feature "I should be able to search ebay with custom filters" do
   end
 
   teardown do
-    Capybara.default_driver = nil
+    Capybara.default_driver = :rack_test
   end
 
   scenario "Anyone can search" do
-    # Given an anonymous user visits the filters page
+    # Given an anonymous user visits the new filter page
     visit new_filter_path
 
     # After waiting 3 seconds results should be loaded
@@ -24,8 +24,23 @@ feature "I should be able to search ebay with custom filters" do
     page.all('.search-grid li').count.must_equal 16
   end
 
+  scenario "A user visits a filter they previously saved" do
+    # Given an authorized user visits a saved filter
+    sign_in(:user)
+    visit filter_path(filters(:shirt))
+
+    # After waiting 3 seconds results should be loaded
+    wait_ajax
+
+    # The Search For title should be loaded
+    page.find('input#query').value.must_include 'Shirt'
+    page.find('.filter-title #query').text.must_include 'Shirt'
+    # The 16 results should be loaded
+    page.all('.search-grid li').count.must_equal 16
+  end
+
   scenario "If no query given" do
-    # Given an anonymous user visits the filters page
+    # Given an anonymous user visits the new filter page
     visit new_filter_path
 
     # Fill in the Search Term with a blank
@@ -37,7 +52,7 @@ feature "I should be able to search ebay with custom filters" do
   end
 
   scenario "If a user loads more results" do
-    # Given an anonymous user visits the filters page
+    # Given an anonymous user visits the new filter page
     visit new_filter_path
 
     # After waiting 3 seconds results should be loaded

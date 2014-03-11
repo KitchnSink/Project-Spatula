@@ -67,5 +67,5 @@ def wait_ajax(wait = Capybara.default_wait_time)
   Timeout.timeout(wait) do
     loop until page.evaluate_script('jQuery.active').zero?
   end
-  sleep(0.5)
+  sleep(1)
 end
