@@ -4,18 +4,18 @@ rvm:
 deploy:
   provider: heroku
   api_key:
-    secure: Q9Ch1k2F97jprmIO0jQvBoVyod48xmX7XlHcmW6VIUdjbDMIPj8IL/7EVxvwdN8/ki79nwDVOhY3uzCwtz0Y3dh9B3Y5PV43kg0QClWHPTgKJUktGQ6phuzwlCTXUW843nUQmIq5BRPBRw1oE3RSlhOYEGTziNXzNalUwAIaleY=
+    secure: aRPxHbxzev1bxAQrD+U6vopacJoz80JcJXCElAi/9dP9M63ho3BIGe99CUkpNmVepLZnMyUPucJSUXg2WIFb/NM3lbLJ06xdPnB8y6/CVClsyptXFR1jNqEBZ+mfUPk35qD0YRryXKH2gMH3gLhKsmzzhUxTBZ7YCl6BEU/rBrs=
   app: spatula-site
   on:
-    repo: KitchnSink/Project-Spatula.git
+    repo: KitchnSink/Project-Spatula
     branch: master
     rvm: 2.0.0
   run:
-    - "bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j4 --deployment"
-    - "rake db:migrate"
-    - restart
-before_script:
-  - psql -c 'create database spatula_test' -U postgres
+  - "bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j4 --deployment"
   - "rake db:migrate"
+  - restart
+before_script:
+- psql -c 'create database spatula_test' -U postgres
+- rake db:migrate
 env:
-  - DB=postgresql
+- DB=postgresql
