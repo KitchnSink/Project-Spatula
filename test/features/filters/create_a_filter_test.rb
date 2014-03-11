@@ -12,7 +12,7 @@ feature "I should be able to create savable ebay search filters" do
     page.find('#filter-form').click_on "Save"
 
     # Then a new filter should be created and displayed
-    page.find('h2.filter-title').text.must_include "Macbook Air"
+    page.find('.filter-title').text.must_include "Macbook Air"
   end
 
   scenario "Authenticated user can create a new filter from their homepage" do
@@ -41,7 +41,7 @@ feature "I should be able to create savable ebay search filters" do
     fill_in_login_form(:user)
 
     # Then once I login, a new filter should be created and displayed
-    page.find('h2.filter-title').text.must_include "Macbook Air"
+    page.find('.filter-title').text.must_include "Macbook Air"
   end
 
   scenario "Anon user can create a new filter by logging in with a new username/password" do
