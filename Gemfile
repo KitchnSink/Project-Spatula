@@ -28,8 +28,8 @@ gem "pundit" # Adds policy-based authorization support
 gem 'coveralls', require: false # Coveralls gem for test coverage
 
 group :test do
-
   gem 'minitest-rails-capybara'
+  gem 'capybara-webkit'
   gem 'turn'
 end
 

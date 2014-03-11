@@ -42,6 +42,7 @@ class ActiveSupport::TestCase
 end
 
 Turn.config.format = :pretty
+Capybara.default_wait_time = 10
 
 def sign_in(role = :user)
   visit new_user_session_path
@@ -60,4 +61,11 @@ def fill_in_sign_up_form(username = 'test')
   fill_in "Password", with: "password"
   fill_in "Password confirmation", with: "password"
   page.find("form").click_on "Sign up"
+end
+
+def wait_ajax(wait = Capybara.default_wait_time)
+  Timeout.timeout(wait) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  sleep(0.5)
 end
