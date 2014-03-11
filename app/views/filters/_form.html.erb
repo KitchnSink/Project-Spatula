@@ -3,59 +3,38 @@
     <div class="field row">
       <div class="columns">
         <div class="filter-search">
-
-          <% if update? @filter %>
-
-          <ul class="inline-list">
-            <li>
+          <div class="row">
+            <div class="large-3 columns">
               <%= f.label :search_term %>
-              <div><%= f.text_field :search_term, autofocus: true, placeholder: 'Search Term', :id => 'query' %></div>
-            </li>
-            <li>
+              <div>
+                <%= f.text_field :search_term, autofocus: true, placeholder: 'Search Term', :id => 'query' %>
+              </div>
+            </div>
+            <div class="large-2 columns">
               <%= f.label :max_price %>
-              <div><%= f.text_field :max_price, placeholder: 'Max Price', :id => 'price' %></div>
-            </li>
-            <li>
+              <div>
+                <%= f.text_field :max_price, placeholder: 'Max Price', :id => 'price' %>
+              </div>
+            </div>
+            <div class="large-3 columns">
               <%= f.label :ending_time %>
-              <div><%= f.text_field :ending_time, placeholder: 'Ending Time', :id => 'end-time' %></div>
-            </li>
-            <li>
-              <%= f.label :ending_time_unit %>
-              <div><%= f.select :ending_time_unit, [['Minutes','minutes'], ['Hours', 'hours'], ['Days', 'days']], {}, :id => 'end-unit' %></div>
-            </li>
-            <li>
+              <div class="row collapse">
+                <div class="large-8 columns">
+                  <%= f.text_field :ending_time, placeholder: 'Ending Time', :id => 'end-time' %>
+                </div>
+                <div class="large-4 columns">
+                  <%= f.select :ending_time_unit, [['Minutes','minutes'], ['Hours', 'hours'], ['Days', 'days']], {}, :id => 'end-unit' %>
+                </div>
+              </div>
+            </div>
+            <div class="large-2 columns">
               <%= f.label :sort_by %>
               <div><%= f.select :sort_by, [['Best Match', 'BestMatch'], ['Ending Soonest', 'EndTimeSoonest'], ['Ending Last', 'StartTimeNewest'], ['Lowest Price', 'PricePlusShippingLowest'], ['Highest Price', 'PricePlusShippingHighest']], {}, :id => 'sort' %></div>
-            </li>
-            <li>
-                <%= submit_tag "Save", class: 'button' %>
-            </li>
-          </ul>
-
-          <% else %>
-
-          <ul class="inline-list">
-            <li>
-              <div>Search Term: <%= @filter.search_term %></div>
-              <%= f.hidden_field :search_term, :id => 'query' %>
-            </li>
-            <li>
-              <div>Price: <%= @filter.max_price %></div>
-              <%= f.hidden_field :max_price, :id => 'price' %>
-            </li>
-            <li>
-              <div>Ending in: <%= pluralize(@filter.ending_time, @filter.ending_time_unit.capitalize) %></div>
-              <%= f.hidden_field :ending_time, :id => 'end-time' %>
-              <%= f.hidden_field :ending_time_unit, :id => 'end-unit' %>
-            </li>
-            <li>
-              <div>Sorted by: <%= @filter.sort_by %></div>
-              <%= f.hidden_field :sort_by, :id => 'sort' %>
-            </li>
-          </ul>
-
-          <% end %>
-
+            </div>
+            <div class="large-2 columns">
+              <%= submit_tag "Save", class: 'button' %>
+            </div>
+          </div>
         </div>
       </div>
   <% end %>

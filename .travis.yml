@@ -8,6 +8,12 @@ deploy:
   app: spatula-site
   on:
     repo: KitchnSink/Project-Spatula.git
+    branch: master
+    rvm: 2.0.0
+  run:
+    - "bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j4 --deployment"
+    - "rake db:migrate"
+    - restart
 before_script:
   - psql -c 'create database spatula_test' -U postgres
   - "rake db:migrate"

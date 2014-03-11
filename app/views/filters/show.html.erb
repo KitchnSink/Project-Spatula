@@ -1,17 +1,20 @@
-
 <div class="row">
   <div class="columns">
-    <%= render 'form' %>
+
+    <hr class="section-spacer">
+    <% if(update? @filter) %>
+      <%= render 'form' %>
+    <% end %>
+
+    <div class="row">
+      <div class="columns">
+        <h3 class="filter-title"><em>Searching for</em>: <span id="query"><%= @filter.search_term %></span></h3>
+      </div>
+    </div>
+
+    <ul class="search-grid small-block-grid-2 medium-block-grid-3 large-block-grid-4"></ul>
+
+    <a href="#" class="button" id="load-more">Load More Results</a>
+
   </div>
 </div>
-
-<div class="row">
-  <div class="columns">
-    <h2 class="filter-title"><em>Searching for</em>: <%= @filter.search_term %></h2>
-  </div>
-</div>
-
-<ul class="search-grid small-block-grid-2 medium-block-grid-3 large-block-grid-4"></ul>
-
-<a href="#" class="button" id="load-more">Load More Results</a>
-
