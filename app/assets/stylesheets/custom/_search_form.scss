@@ -38,3 +38,14 @@
   clear: both;
   margin-top: .2em;
 }
+
+/* `Homepage
+----------------------------------------*/
+.home-columns {
+  @extend .columns;
+}
+
+.home-search {
+  padding-bottom: .3em;
+  padding-top: .4em;
+}

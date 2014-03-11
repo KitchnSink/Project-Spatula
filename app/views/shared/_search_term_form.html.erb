@@ -1,6 +1,11 @@
 <div id="search-term-form">
   <%= form_tag(new_filter_path, method: "get") do %>
-    <%= text_field_tag :query, '', autofocus: true, placeholder: 'Find something (i.e., Macbook Air, Jcrew shirt, Nike shoes)' %>
-    <%= submit_tag("Search") %>
+  <div class="row collapse">
+    <div class="small-9 home-columns">
+      <%= text_field_tag :query, '', autofocus: true, placeholder: 'Find something (i.e., Macbook Air, Jcrew shirt, Nike shoes)' %>
+    </div>
+    <div class="small-3 home-columns">
+      <%= submit_tag "Search" ,class: 'button home-search' %>
+    </div>
   <% end %>
 </div>
