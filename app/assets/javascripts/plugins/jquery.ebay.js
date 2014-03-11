@@ -170,15 +170,29 @@
   function template(item) {
     var container = $('<li/>', {
       'class': 'grid-item',
-    });
-    $('<a/>', {
-      'target': '_blank',
-      'href': item.viewItemURL[0],
-      'html': $('<img/>', {
-        'src': item.pictureURLLarge ? item.pictureURLLarge[0] : item.galleryURL[0]
+    }),
+    timeLeft = calcTimeLeft(item.listingInfo[0].endTime[0]);
+
+    $('<div/>', {
+      'class': 'thumbnail-wrapper',
+      'html': $('<a/>', {
+        'target': '_blank',
+        'href': item.viewItemURL[0],
+        'html': $('<img/>', {
+          'class': 'thumbnail',
+          'src': item.pictureURLLarge ? item.pictureURLLarge[0] : item.galleryURL[0]
+        })
       })
     }).appendTo(container);
-    $('<h3/>', {
+    $('<div/>', {
+      'class': timeLeft.indexOf('minutes') != -1 ? 'item-time ending-soon' : 'item-time',
+      'text': timeLeft
+    }).appendTo(container);
+    $('<div/>', {
+      'class': 'item-price',
+      'text': item.sellingStatus[0].convertedCurrentPrice[0]['__value__'].formatMoney()
+    }).appendTo(container);
+    $('<h5/>', {
       'class': 'item-title',
       'html': $('<a/>', {
         'target': '_blank',
@@ -186,22 +200,16 @@
         'text': item.title[0]
       })
     }).appendTo(container);
-    $('<div/>', {
-      'class': 'item-price',
-      'text': item.sellingStatus[0].convertedCurrentPrice[0]['__value__'].formatMoney()
-    }).appendTo(container);
-    $('<div/>', {
-      'class': 'item-time',
-      'text': calcTimeLeft(item.listingInfo[0].endTime[0])
-    }).appendTo(container);
     return container;
   }
 
   function throwError(errorMessage) {
     gridContainer.empty();
     $('<li/>', {
-      class: 'search-error',
-      text: errorMessage
+      html: $('<div/>', {
+        class: 'alert-box alert',
+        text: errorMessage
+      })
     }).appendTo(gridContainer);
   }
 
@@ -216,7 +224,7 @@
 
   function valdation(callback) {
     if (!values.query) {
-      throwError('No Query Value');
+      throwError('Search Term Required');
       return false;
     }
   }

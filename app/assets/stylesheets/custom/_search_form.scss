@@ -1,0 +1,40 @@
+/* `Filter Inputs
+----------------------------------------*/
+.filter-search .button {
+  margin-top: 1em;
+  padding-bottom: .35em;
+  padding-top: .4125em;
+}
+
+/* `Search Grid
+----------------------------------------*/
+.thumbnail-wrapper {
+  margin-bottom: .5em;
+  text-align: center;
+
+  .thumbnail {
+    max-width: 100%;
+    max-height: 200px;
+  }
+}
+
+.item-time {
+  float: left;
+  font-size: .75em;
+
+  &.ending-soon {
+    color: #f04124;
+  }
+}
+
+.item-price {
+  float: right;
+  font-size: .8em;
+
+  @extend .label;
+}
+
+.item-title {
+  clear: both;
+  margin-top: .2em;
+}
