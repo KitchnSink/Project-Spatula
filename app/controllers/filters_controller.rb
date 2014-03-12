@@ -14,7 +14,7 @@ class FiltersController < ApplicationController
       @filter = Filter.new(JSON.parse(session.delete(:preauth_filter)))
       return save_record @filter
     end
-    @filters = policy_scope(Filter)
+    @filters = policy_scope(current_user.filters)
   end
 
   # GET /f/:username
