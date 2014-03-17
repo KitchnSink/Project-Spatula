@@ -2,16 +2,13 @@ class FilterPolicy < ApplicationPolicy
 
   class Scope < Struct.new(:user, :scope)
     def resolve
+
       if user.nil?
         scope.where(published: true)
       elsif user.admin?
         scope.all
       else
-        if scope.first.user.id == user.id
-          user.filters
-        else
-          scope.where(published: true)
-        end
+        scope.where(user: user)
       end
 
     end

@@ -14,13 +14,13 @@ class FiltersController < ApplicationController
       @filter = Filter.new(JSON.parse(session.delete(:preauth_filter)))
       return save_record @filter
     end
-    @filters = policy_scope(current_user.filters)
+    @filters = Pundit.policy_scope(current_user, Filter)
   end
 
   # GET /f/:username
   # GET /f/:username.json
   def public
-    @filters = policy_scope(@user.filters)
+    @filters = Pundit.policy_scope(@user, Filter.where(published: true))
   end
 
   # GET /filters/1
@@ -94,7 +94,12 @@ class FiltersController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find_by username: params[:username] || not_found
+      @user = User.find_by username: params[:username]
+      @user || not_found
+    end
+
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
